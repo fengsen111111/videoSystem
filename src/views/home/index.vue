@@ -1,5 +1,7 @@
 <script setup lang="ts">
     import eChartsHome from '@/components/eCharts_home.vue'
+    import scrollDiv from '@/components/scroll_div.vue'
+    import scrollDivTwo from '@/components/scroll_div_two.vue'
     import { ref } from 'vue'
     let twoList = ref([
         {
@@ -37,6 +39,7 @@
     function getImageUrl(name) {
         return new URL(`../../assets/home/two_${name}.png`, import.meta.url).href;
     }
+
 </script>
 
 <template>
@@ -125,18 +128,21 @@
                             <span class="relative -top-1">科研课题</span>
                         </span>
                         <div>
-                            <div class="bg-[#44B1D5] text-base text-center text-[#19ECFF] mt-2 grid grid-cols-4 items-center">
+                            <div
+                                class="bg-[#44B1D5] text-base text-center text-[#19ECFF] mt-2 grid grid-cols-4 items-center">
                                 <div>课题编号</div>
                                 <div>课题名称</div>
                                 <div>科研负责人</div>
                                 <div>相关简介</div>
                             </div>
-                            <div class="grid grid-cols-4 text-center items-center pt-1 border-t-2 border-t-[#19ECFF] mt-2 text-xs" v-for="item in [1,2,3,4]" :key="item">
+                            <!-- <div class="grid grid-cols-4 text-center items-center pt-1 border-t-2 border-t-[#19ECFF] mt-2 text-xs"
+                                v-for="item in [1,2,3,4]" :key="item">
                                 <div>xxxxxxxx</div>
                                 <div>植物嫁接理论</div>
                                 <div>张山</div>
                                 <div class="text-[8px] text-left">无性繁殖一般就是用植物的枝条或侧芽进行扦插,植物的枝条...</div>
-                            </div>
+                            </div> -->
+                            <scrollDiv />
                         </div>
                     </div>
                 </div>
@@ -146,19 +152,23 @@
                             <span class="relative -top-1">实验室摄像监控</span>
                         </span>
                         <div>
-                            <div class="bg-[#44B1D5] text-base text-center text-[#19ECFF] mt-2 grid grid-cols-3 items-center">
+                            <div
+                                class="bg-[#44B1D5] text-base text-center text-[#19ECFF] mt-2 grid grid-cols-3 items-center">
                                 <div>实验室</div>
                                 <div>监控</div>
                                 <div>状态</div>
                             </div>
-                            <div class="grid grid-cols-3 text-center items-center pt-1 mt-2 text-xs" v-for="item in [1,2,3,4,5]" :key="item">
+                            <!-- <div class="grid grid-cols-3 text-center items-center pt-1 mt-2 text-xs"
+                                v-for="item in [1,2,3,4,5]" :key="item">
                                 <div>1号实验室</div>
                                 <div>监控1</div>
                                 <div class="flex items-center ml-[3.75rem]">
                                     <div class="text-[#60F3A0]">使用中</div>
-                                    <div class="ml-8"><img src="../../assets/home/serve.png" class="w-2 h-3" alt=""></div>
+                                    <div class="ml-8"><img src="../../assets/home/serve.png" class="w-2 h-3" alt="">
+                                    </div>
                                 </div>
-                            </div>
+                            </div> -->
+                            <scrollDivTwo />
                         </div>
                     </div>
                 </div>

@@ -13,7 +13,9 @@
     "ant-design-vue": "^3.2.20",
     "echarts": "^5.5.1",
     "vue": "^3.5.12",
-    "vue-router": "^4.0.13"
+    "vue-router": "^4.0.13",
+    "vue3-scroll-seamless": "^1.0.6",
+    "vue3-seamless-scroll": "^2.0.1"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.1.4",

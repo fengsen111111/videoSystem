@@ -859,7 +859,7 @@ eastasianwidth@^0.2.0:
 
 echarts@^5.5.1:
   version "5.5.1"
-  resolved "https://registry.npmmirror.com/echarts/-/echarts-5.5.1.tgz#8dc9c68d0c548934bedcb5f633db07ed1dd2101c"
+  resolved "https://registry.npmmirror.com/echarts/-/echarts-5.5.1.tgz"
   integrity sha512-Fce8upazaAXUVUVsjgV6mBnGuqgO+JNDlcgF79Dksy4+wgGpQB2lmYoO4TSweFg/mZITdpGHomw/cNBJZj1icA==
   dependencies:
     tslib "2.3.0"
@@ -1650,6 +1650,11 @@ thenify-all@^1.0.0:
   dependencies:
     any-promise "^1.0.0"
 
+throttle-debounce@5.0.0:
+  version "5.0.0"
+  resolved "https://registry.npmmirror.com/throttle-debounce/-/throttle-debounce-5.0.0.tgz"
+  integrity sha512-2iQTSgkkc1Zyk0MeVrt/3BvuOXYPl/R8Z0U2xxo9rjwNciaHDG3R+Lm6dh4EeUci49DanvBnuqI6jshoQQRGEg==
+
 to-regex-range@^5.0.1:
   version "5.0.1"
   resolved "https://registry.npmmirror.com/to-regex-range/-/to-regex-range-5.0.1.tgz"
@@ -1664,8 +1669,13 @@ ts-interface-checker@^0.1.9:
 
 tslib@2.3.0:
   version "2.3.0"
-  resolved "https://registry.npmmirror.com/tslib/-/tslib-2.3.0.tgz#803b8cdab3e12ba581a4ca41c8839bbb0dacb09e"
+  resolved "https://registry.npmmirror.com/tslib/-/tslib-2.3.0.tgz"
   integrity sha512-N82ooyxVNm6h1riLCoyS9e3fuJ3AMG2zIZs2Gd1ATcSFjSA23Q0fzjjZeh0jbJvWVDZ0cJT8yaNNaaXHzueNjg==
+
+typescript@^4.8.4:
+  version "4.9.5"
+  resolved "https://registry.npmmirror.com/typescript/-/typescript-4.9.5.tgz"
+  integrity sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==
 
 typescript@^5.6.3:
   version "5.6.3"
@@ -1731,6 +1741,20 @@ vue-types@^3.0.0:
   dependencies:
     is-plain-object "3.0.1"
 
+vue3-scroll-seamless@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.npmmirror.com/vue3-scroll-seamless/-/vue3-scroll-seamless-1.0.6.tgz"
+  integrity sha512-2vcnZ2HmEehV8bZGE3mK7b4XgiMqsf/1bIjV+OjDP+JsyShhUQaFdgGY4nBJt12mjL+A4f8ed9oLPNznVS816g==
+  dependencies:
+    typescript "^4.8.4"
+
+vue3-seamless-scroll@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.npmmirror.com/vue3-seamless-scroll/-/vue3-seamless-scroll-2.0.1.tgz"
+  integrity sha512-mI3BaDU3pjcPUhVSw3/xNKdfPBDABTi/OdZaZqKysx4cSdNfGRbVvGNDzzptBbJ5S7imv5T55l6x/SqgnxKreg==
+  dependencies:
+    throttle-debounce "5.0.0"
+
 vue@^3.5.12:
   version "3.5.12"
   resolved "https://registry.npmmirror.com/vue/-/vue-3.5.12.tgz"
@@ -1781,7 +1805,7 @@ yaml@^2.3.4:
 
 zrender@5.6.0:
   version "5.6.0"
-  resolved "https://registry.npmmirror.com/zrender/-/zrender-5.6.0.tgz#01325b0bb38332dd5e87a8dbee7336cafc0f4a5b"
+  resolved "https://registry.npmmirror.com/zrender/-/zrender-5.6.0.tgz"
   integrity sha512-uzgraf4njmmHAbEUxMJ8Oxg+P3fT04O+9p7gY+wJRVxo8Ge+KmYv0WJev945EH4wFuc4OY2NLXz46FZrWS9xJg==
   dependencies:
     tslib "2.3.0"
