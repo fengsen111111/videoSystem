@@ -64,7 +64,7 @@
                     <div class="px-4 py-1 text-center grid grid-cols-2">
                         <div class="items-center flex my-2" v-for="(item,index) in twoList" :key="index">
                             <!-- <img src="../../assets/home/two_1.png" class="w-14 h-14" alt=""> -->
-                            <img :src="getImageUrl(item.id)" class="w-12 h-12" alt="">
+                            <img :src="getImageUrl(item.id)" class="w-12 h-12 donghua" alt="">
                             <div class="ml-5">
                                 <div class="text-lg">{{item.number}} 个</div>
                                 <div class="text-xs text-[#23FFF9]">{{item.text}}</div>
@@ -91,21 +91,21 @@
                             </div>
                             <div class="grid grid-cols-3 py-2 px-5">
                                 <div class="flex items-center">
-                                    <img src="../../assets/home/four_1.png" class="w-10 h-10" alt="">
+                                    <img src="../../assets/home/four_1.png" class="w-10 h-10 donghua" alt="">
                                     <div class="ml-2">
                                         <div>20°C</div>
                                         <div class="text-[#FBD234]">温度</div>
                                     </div>
                                 </div>
                                 <div class="flex items-center">
-                                    <img src="../../assets/home/four_1.png" class="w-10 h-10" alt="">
+                                    <img src="../../assets/home/four_2.png" class="w-10 h-10 donghua" alt="">
                                     <div class="ml-2">
                                         <div>20°C</div>
                                         <div class="text-[#FBD234]">湿度</div>
                                     </div>
                                 </div>
                                 <div class="flex items-center">
-                                    <img src="../../assets/home/four_1.png" class="w-10 h-10" alt="">
+                                    <img src="../../assets/home/four_3.png" class="w-10 h-10 donghua" alt="">
                                     <div class="ml-2">
                                         <div>20°C</div>
                                         <div class="text-[#FBD234]">二氧化碳浓度</div>
@@ -178,6 +178,17 @@
 </template>
 
 <style scoped>
+    @keyframes rotate360 {
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    /*  */
+    .donghua:hover {
+        animation: rotate360 3s infinite 0s;
+    }
+
     .bg_home_one {
         background-image: url('../../assets/home/one.png');
         background-size: 100% 100%;
