@@ -1,5 +1,7 @@
 <script setup lang="ts">
     import { ref } from 'vue'
+    import { GetDataList_sys } from '@/api/api.js'
+
     const rou_index = ref(1)
     rou_index.value = localStorage.getItem('rou_index')?localStorage.getItem('rou_index'):1
     const cliIndex = (index) => {
@@ -7,6 +9,14 @@
         rou_index.value = index
         localStorage.setItem('rou_index',rou_index.value)
     }
+    const info_obj = ref()
+    function _GetDataList_sys(){
+        GetDataList_sys().then((res)=>{
+            // console.log('数据',res);
+            info_obj.value = res[0]
+        })
+    }
+    _GetDataList_sys()
 </script>
 
 <template>
@@ -17,8 +27,9 @@
                     <div class="img_top_left h-16 w-full"></div>
                 </a-col>
                 <a-col :span="10">
-                    <div class="img_top_center w-full text-4xl font-bold text-white text-center h-24 leading-[72px]">
-                        南方蔬菜种业创新中心共享实验室
+                    <div  class="img_top_center w-full text-4xl font-bold text-white text-center h-24 leading-[72px]">
+                        <!-- 南方蔬菜种业创新中心共享实验室 -->
+                         {{info_obj?info_obj.systitle:''}}
                     </div>
                 </a-col>
                 <a-col :span="7">

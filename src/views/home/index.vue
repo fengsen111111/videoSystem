@@ -2,43 +2,98 @@
     import eChartsHome from '@/components/eCharts_home.vue'
     import scrollDiv from '@/components/scroll_div.vue'
     import scrollDivTwo from '@/components/scroll_div_two.vue'
-    import { ref } from 'vue'
+    import { ref, onMounted, onUnmounted } from 'vue'
+    import { GetDataList_sys, GetDataList_plc } from '@/api/api.js'
     let twoList = ref([
         {
             id: 1,
             text: '监控房间',
-            number: 60
+            number: 60,
+            key: 'monitors'
         },
         {
             id: 2,
             text: '设备启用',
-            number: 60
+            number: 60,
+            key: 'equipments'
         },
         {
             id: 3,
             text: '植物种类',
-            number: 60
+            number: 60,
+            key: 'classifications'
         },
         {
             id: 4,
             text: '植物数量',
-            number: 60
+            number: 60,
+            key: 'botanynumber'
         },
         {
             id: 5,
             text: '表单数量',
-            number: 60
+            number: 60,
+            key: 'formsnumber'
         },
         {
             id: 6,
             text: '实验人员',
-            number: 88
+            number: 88,
+            key: 'experimentalpersonnel'
         },
     ])
     // 动态处理图片
     function getImageUrl(name) {
         return new URL(`../../assets/home/two_${name}.png`, import.meta.url).href;
     }
+
+    const info_obj = ref()
+    function _GetDataList_sys() {
+        GetDataList_sys().then((res) => {
+            // console.log('数据',res);
+            info_obj.value = res[0]
+        })
+    }
+    _GetDataList_sys()
+    function handIndex(index) {
+        itemRoom.value = index
+        // 切换下一页
+    }
+
+    const roomList = ref([])//所有房间数据
+    const itemRoom = ref(0)//当前索引
+    // 房间数据 轮询
+    function _GetDataList_plc() {
+        GetDataList_plc().then((res) => {
+            roomList.value = []
+            for (let i = 0; i < res.length; i += 2) {
+                roomList.value.push(res.slice(i, i + 2));
+            }
+            // console.log('2个一组',roomList.value);
+        })
+    }
+    _GetDataList_plc()
+
+    let timer = null; // 定时器句柄
+    // 启动定时器
+    const startTimer = () => {
+        timer = setInterval(() => {
+            console.log('5秒一刷新');
+            _GetDataList_plc()
+        }, 5000);
+    };
+    // 页面加载时启动定时器
+    onMounted(() => {
+        startTimer();
+    });
+    // 页面离开时销毁定时器
+    onUnmounted(() => {
+        if (timer) {
+            clearInterval(timer);
+            timer = null; // 清空引用
+            console.log('定时器已销毁');
+        }
+    });
 
 </script>
 
@@ -48,13 +103,17 @@
             <div class="w-[480px] space-y-5">
                 <div class="bg_home_one p-2">
                     <span class="bg_home_one_border text-xl pl-3">
-                        <span class="relative -top-1">蔬菜种业创新中心共享实验室实验室介绍</span>
+                        <span class="relative -top-1">
+                            <!-- 蔬菜种业创新中心共享实验室实验室介绍 -->
+                            {{info_obj?info_obj.sysname:''}}
+                        </span>
                     </span>
-                    <div class="px-4 py-2">
-                        蔬菜产业的快速发展，离不开蔬菜种业的贡献。“吃菜自由”、“吃瓜自 由”，良种加持下，蔬菜产量不断提升。2024年，第十六届中国国际种
+                    <div class="px-4 py-2 min-h-40">
+                        {{info_obj?info_obj.sysintroduction:''}}
+                        <!-- 蔬菜产业的快速发展，离不开蔬菜种业的贡献。“吃菜自由”、“吃瓜自 由”，良种加持下，蔬菜产量不断提升。2024年，第十六届中国国际种
                         业博览会暨第二十一届全国种子信息交流与产品交易会（简称第二十一 届全国种子双交会）将于10月29—31日在福建福州举办。作为大会重
                         要内容之一，蔬菜种业创新发展论坛定于10月31日在福州海峡国际会 展中心举办。2023年全国蔬菜面积已达到3.4亿亩，产量8.3亿吨。超过
-                        8亿吨的蔬菜产量，占全球总产量约60%，产量排名世界第一。近年 来，我国蔬菜种植面积和产量呈稳中有升态势。
+                        8亿吨的蔬菜产量，占全球总产量约60%，产量排名世界第一。近年 来，我国蔬菜种植面积和产量呈稳中有升态势。 -->
                     </div>
                 </div>
                 <div class="bg_home_item p-2">
@@ -66,7 +125,9 @@
                             <!-- <img src="../../assets/home/two_1.png" class="w-14 h-14" alt=""> -->
                             <img :src="getImageUrl(item.id)" class="w-12 h-12 donghua" alt="">
                             <div class="ml-5">
-                                <div class="text-lg">{{item.number}} 个</div>
+                                <div class="text-lg">
+                                    {{info_obj?info_obj[item.key]:''}}
+                                    个</div>
                                 <div class="text-xs text-[#23FFF9]">{{item.text}}</div>
                             </div>
                         </div>
@@ -85,29 +146,39 @@
                         <span class="bg_home_item_border w-52 flex text-xl pl-3">
                             <span class="relative -top-1">主要房间检测数据</span>
                         </span>
-                        <div v-for="item in [1,2]" :key="item">
+                        <div v-for="item in roomList[itemRoom]" :key="item.Id">
                             <div class="bg-[#44B1D5] text-base text-white mt-2 flex items-center pl-5">
-                                {{item}}号实验室
+                                <!-- {{item}}号实验室 -->
+                                {{item.fjname}}
                             </div>
                             <div class="grid grid-cols-3 py-2 px-5">
                                 <div class="flex items-center">
                                     <img src="../../assets/home/four_1.png" class="w-10 h-10 donghua" alt="">
                                     <div class="ml-2">
-                                        <div>20°C</div>
+                                        <div>
+                                            <!-- 20°C -->
+                                            {{item.temperature+'°C'}}
+                                        </div>
                                         <div class="text-[#FBD234]">温度</div>
                                     </div>
                                 </div>
                                 <div class="flex items-center">
                                     <img src="../../assets/home/four_2.png" class="w-10 h-10 donghua" alt="">
                                     <div class="ml-2">
-                                        <div>20°C</div>
+                                        <div>
+                                            <!-- 20°C -->
+                                            {{item.humidity+'°C'}}
+                                        </div>
                                         <div class="text-[#FBD234]">湿度</div>
                                     </div>
                                 </div>
                                 <div class="flex items-center">
                                     <img src="../../assets/home/four_3.png" class="w-10 h-10 donghua" alt="">
                                     <div class="ml-2">
-                                        <div>20°C</div>
+                                        <div>
+                                            <!-- 20°C -->
+                                            {{item.carbondioxide+'°C'}}
+                                        </div>
                                         <div class="text-[#FBD234]">二氧化碳浓度</div>
                                     </div>
                                 </div>
@@ -115,9 +186,11 @@
                         </div>
                         <div class="flex justify-around">
                             <div class="flex">
-                                <img src="../../assets/home/four_check.png" class="w-2 h-2 mr-4" alt="">
-                                <img src="../../assets/home/four_more.png" class="w-2 h-2 mr-4" alt="">
-                                <img src="../../assets/home/four_more.png" class="w-2 h-2 mr-4" alt="">
+                                <div @click="handIndex(index)" v-for="(item,index) in roomList" :key="index">
+                                    <img v-if="index == itemRoom" src="../../assets/home/four_check.png"
+                                        class="w-2 h-2 mr-4" alt="">
+                                    <img v-else src="../../assets/home/four_more.png" class="w-2 h-2 mr-4" alt="">
+                                </div>
                             </div>
                         </div>
                     </div>

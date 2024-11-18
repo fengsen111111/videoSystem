@@ -1,72 +1,44 @@
 <script lang="ts" setup>
-    import { reactive } from "vue";
+    import { reactive,ref } from "vue";
     import { vue3ScrollSeamless } from "vue3-scroll-seamless";
+    import { useRouter, useRoute } from 'vue-router'
+    import { GetDataList_sxt } from '@/api/api.js'
+
+    const sxt_list = ref([])
+    function _GetDataList_sxt() {
+        GetDataList_sxt().then((res) => {
+            console.log('摄像头列表', res);
+            sxt_list.value = res
+        })
+    }
+    _GetDataList_sxt()
 
     const classOptions = {
         step: 0.5
     };
-
-    const arr = [
-        {
-            title: '号实验室',
-            name: '监控',
-            text: '使用中'
-        },
-        {
-            title: '号实验室',
-            name: '监控',
-            text: '使用中'
-        },
-        {
-            title: '号实验室',
-            name: '监控',
-            text: '使用中'
-        },
-        {
-            title: '号实验室',
-            name: '监控',
-            text: '使用中'
-        },
-        {
-            title: '号实验室',
-            name: '监控',
-            text: '使用中'
-        },
-        {
-            title: '号实验室',
-            name: '监控',
-            text: '使用中'
-        },
-        {
-            title: '号实验室',
-            name: '监控',
-            text: '使用中'
-        },
-        {
-            title: '号实验室',
-            name: '监控',
-            text: '使用中'
-        },
-        {
-            title: '号实验室',
-            name: '监控',
-            text: '使用中'
-        },
-
-    ]
+    
+    const router = useRouter()
+    const route = useRoute()
+    const handleDetails = (item) => {
+        console.log('跳转监控室', item);
+        router.push({
+            path: '/video/index',
+            query: item
+        })
+    }
 </script>
 
 <template>
     <div class="demo">
-        <vue3ScrollSeamless class="scroll-wrap w-full" :classOptions="classOptions" :dataList="arr">
+        <vue3ScrollSeamless class="scroll-wrap w-full" :classOptions="classOptions" :dataList="sxt_list">
             <ul class="ui-wrap w-full">
-                <li class="li-item" v-for="(item,i) in arr" :key="i">
-                    <div class="grid grid-cols-3 text-center items-center pt-1 mt-2 text-xs w-full">
-                        <div>{{i+''+item.title}}</div>
-                        <div>{{item.name+''+i}}</div>
+                <li class="li-item" v-for="(item,i) in sxt_list" :key="i">
+                    <div class="grid grid-cols-3 text-center items-center pt-1 mt-2 text-xs w-full ">
+                        <div>{{item.sysId}}</div>
+                        <div>{{item.monitorname}}</div>
                         <div class="flex items-center ml-[3.75rem]">
-                            <div class="text-[#60F3A0]">{{item.text}}</div>
-                            <div class="ml-8">
+                            <div :class="item.states=='使用中'?'text-[#60F3A0]':'text-red-600'">{{item.states}}</div>
+                            <div class="ml-8" @click="handleDetails(item)">
                                 <img src="../assets/home/serve.png" class="w-2 h-3" alt="">
                             </div>
                         </div>

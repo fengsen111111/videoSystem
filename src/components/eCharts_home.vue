@@ -13,29 +13,22 @@
             </div>
         </div>
         <div class="absolute text-center top-[64px] left-[78px]">
-            <div>182712</div>
+            <div>
+                <!-- 182712 -->
+                {{zs}}
+            </div>
             <div class="text-xs ml-0.5">植物总数</div>
         </div>
     </div>
-
 </template>
 
 <script setup>
     import { ref, onMounted, onUnmounted, nextTick } from 'vue';
     import * as echarts from 'echarts';
-    // 创建一个响应式引用来保存DOM元素
-    const color = ['#438BFA', '#60F3A0', '#FBD234', '#F46077']
-    const data = [
-        { value: 15678, name: '蔬菜类' },
-        { value: 45678, name: '水果类' },
-        { value: 75678, name: '药品类' },
-        { value: 45678, name: '观赏类' },
-    ]
-    const chartDom = ref(null);
-    let chartInstance = null;
-    // 初始化ECharts实例并设置配置项（这里以折线图为例，但可灵活替换）
-    onMounted(async () => {
-        await nextTick(); // 确保DOM已经渲染完成
+    import { GetDataList_zwfl } from '@/api/api.js'
+
+
+    function init(){
         chartInstance = echarts.init(chartDom.value);
         const option = {
             tooltip: {
@@ -59,6 +52,39 @@
             ]
         };
         chartInstance.setOption(option);
+    }
+
+    // 创建一个响应式引用来保存DOM元素
+    const color = ['#438BFA', '#60F3A0', '#FBD234', '#F46077']
+    let data = [
+        // { value: 15678, name: '蔬菜类' },
+        // { value: 45678, name: '水果类' },
+        // { value: 75678, name: '药品类' },
+        // { value: 45678, name: '观赏类' },
+    ]
+    const zs = ref(0)
+    function _GetDataList_zwfl() {
+        GetDataList_zwfl().then((res) => {
+            // console.log('植物分类', res);
+            data = []
+            data = res.map((item)=>{
+                zs.value = zs.value + Number(item.classificationnumber)
+                return {
+                    value: item.classificationnumber,
+                    name: item.classificationname
+                }
+            })
+            init()
+        })
+    }
+    _GetDataList_zwfl()
+
+    const chartDom = ref(null);
+    let chartInstance = null;
+    // 初始化ECharts实例并设置配置项（这里以折线图为例，但可灵活替换）
+    onMounted(async () => {
+        await nextTick(); // 确保DOM已经渲染完成
+        
     });
 
     // 销毁ECharts实例
