@@ -1,11 +1,11 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory,createWebHashHistory } from 'vue-router'
 import Home from '@/views/home/index.vue'
 import Video from '@/views/video/index.vue'
 import VideoIndex from '@/views/videoIndex/index.vue'
 import System from '@/views/system/index.vue'
 const routes = [
     {
-        path: '/',
+        path: '/index',
         name: 'Home',
         component: Home
     },
@@ -27,7 +27,7 @@ const routes = [
 ]
 
 const router = createRouter({
-    history: createWebHistory(),
+    history: createWebHashHistory(),
     routes
 })
 

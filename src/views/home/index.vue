@@ -4,6 +4,7 @@
     import scrollDivTwo from '@/components/scroll_div_two.vue'
     import { ref, onMounted, onUnmounted } from 'vue'
     import { GetDataList_sys, GetDataList_plc } from '@/api/api.js'
+
     let twoList = ref([
         {
             id: 1,
@@ -105,7 +106,7 @@
                     <span class="bg_home_one_border text-xl pl-3">
                         <span class="relative -top-1">
                             <!-- 蔬菜种业创新中心共享实验室实验室介绍 -->
-                            {{info_obj?info_obj.sysname:''}}
+                            {{info_obj?info_obj.systitle:''}}
                         </span>
                     </span>
                     <div class="px-4 py-2 min-h-40">

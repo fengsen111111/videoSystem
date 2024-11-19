@@ -6,7 +6,7 @@ if (import.meta.env.MODE === 'development') {
     config.baseURL = 'http://118.178.230.2:89'
 } else if (import.meta.env.MODE === 'production') {
     // console.log('当前是生产环境');
-    config.baseURL = '127.0.0.1'
+    config.baseURL = "http://192.168.1.254"
 }
 export {
     config
