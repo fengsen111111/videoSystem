@@ -21,11 +21,11 @@
     const route = useRoute()
     const handleDetails = (item) => {
         console.log('跳转监控室', item);
-        // router.push({
-        //     path: '/video/index',
-        //     query: item
-        // })
-        window.open(item.sxtURL)
+        router.push({
+            path: '/video/index',
+            query: item
+        })
+        // window.open(item.sxtURL)
     }
 </script>
 
